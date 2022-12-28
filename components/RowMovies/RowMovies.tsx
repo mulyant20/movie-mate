@@ -14,7 +14,7 @@ type Props = {
   title: string
 }
 
-const fetcher = (url:string) => fetch(url).then((res) => res.json());
+const fetcher = (url:string) => fetch(url).then((res) => res.json())
 
 export default function RowMovies({ request, title }: Props) {
   const [movies, setMovies] = useState<MovieI[] | null>(null)
@@ -30,9 +30,8 @@ export default function RowMovies({ request, title }: Props) {
 
   if (!data) {
     return (
-      <div>
+      <div className='mb-12'>
         <p className={style.title}>{title}</p>
-        
       </div>
     )
   }

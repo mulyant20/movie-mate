@@ -1,4 +1,5 @@
 import { MovieI } from '@interfaces/movies'
+import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 
 const baseUrl = 'https://image.tmdb.org/t/p/original'
@@ -8,12 +9,17 @@ type Props = {
 }
 
 const Card = ({ movie }: Props) => {
+  const router = useRouter()
   const data = useMemo(() => {
     return getData(movie)
   }, [])
 
+  const openDetail = (id: number) => {
+    router.push(`/detail/${id}`)
+  }
+
   return (
-    <div className={style.card}>
+    <div className={style.card} onClick={() => openDetail(data.id)}>
       <div className={style.gradient}>
         <div className={style.top}>
           <div className={style.ratingWrapper}>
@@ -39,9 +45,11 @@ const Card = ({ movie }: Props) => {
 
 const style = {
   card: 'w-[300px] h-64 rounded-[18px] bg-[#232027] relative',
-  gradient: 'w-full h-full absolute left-0 top-0 bg-gradient-to-t from-[#1A171E] to-[#1A171E]/0 rounded-[16px] p-6',
+  gradient:
+    'w-full h-full absolute left-0 top-0 bg-gradient-to-t from-[#1A171E] to-[#1A171E]/0 rounded-[16px] p-6',
   top: 'h-full w-full flex flex-col justify-between items-start',
-  ratingWrapper: 'inline-flex gap-2 items-center rounded-full px-[12px] py-[8px] bg-black/70 mb-4 text-white',
+  ratingWrapper:
+    'inline-flex gap-2 items-center rounded-full px-[12px] py-[8px] bg-black/70 mb-4 text-white',
   name: 'text-lg text-white',
   time: 'text-sm text-white/30',
   imgWrapper: 'w-full h-full rounded-[20px] overflow-hidden',
@@ -54,12 +62,14 @@ const getData = (movie: MovieI) => {
       name: movie.name,
       rating: movie.vote_average,
       time: movie.first_air_date?.split('-')[0],
+      id: movie.id,
     }
   } else {
     return {
       name: movie.title,
       rating: movie.vote_average,
       time: movie.release_date.split('-')[0],
+      id: movie.id,
     }
   }
 }
