@@ -5,6 +5,7 @@ import Card from './Card'
 import { PietileCarousel, PietileCarouselHandle } from 'pietile-carousel'
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs'
 import Link from 'next/link'
+import useSWR from 'swr'
 
 const baseUrl = 'https://image.tmdb.org/t/p/original'
 
@@ -13,24 +14,25 @@ type Props = {
   title: string
 }
 
+const fetcher = (url:string) => fetch(url).then((res) => res.json());
+
 export default function RowMovies({ request, title }: Props) {
   const [movies, setMovies] = useState<MovieI[] | null>(null)
   const carousel = useRef<PietileCarouselHandle>(null)
 
-  const getMovies = async () => {
-    const res = await fetch(request)
-    const data = await res.json()
-    setMovies(data.results)
-  }
+  const { data, error } = useSWR(request, fetcher)
 
   useEffect(() => {
-    getMovies()
-  }, [])
+    if(data) {
+      setMovies(data.results)
+    }
+  }, [data])
 
-  if (!Array.isArray(movies) || !movies.length) {
+  if (!data) {
     return (
       <div>
         <p className={style.title}>{title}</p>
+        
       </div>
     )
   }
@@ -63,7 +65,7 @@ export default function RowMovies({ request, title }: Props) {
           count={3}
           ref={carousel}
         >
-          {movies.map((movie, index) => (
+          {movies?.map((movie, index) => (
             <Card key={index} movie={movie} />
           ))}
         </PietileCarousel>
