@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 
 type Props = {}
 
-export default function watchlist({}: Props) {
+export default function Watchlist({}: Props) {
   const [movies, setMovies] = useState<watchListI[] | []>([])
 
   useEffect(() => {
