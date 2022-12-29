@@ -22,8 +22,8 @@ export default function Home() {
       <HeroBanner request={requests.featured} />
       <RowMovies title='Trending' request={requests.trends} />
       <RowMovies title='Top Rated' request={requests.topRated} />
-      <RowMovies title='Action' request={requests.action} />
-      <RowMovies title='Comedy' request={requests.comedy} />
+      {/* <RowMovies title='Action' request={requests.action} />
+      <RowMovies title='Comedy' request={requests.comedy} /> */}
     </Layout>
   )
 }

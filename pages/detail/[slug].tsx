@@ -3,6 +3,10 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import useSWR from 'swr'
 import { motion } from 'framer-motion'
+import {useDispatch} from 'react-redux'
+import { MovieI } from '@interfaces/movies'
+import { watchListI } from '@interfaces/watchlist'
+import { addMovie } from 'redux/watchlist/watchlistSlice'
 
 const imageUrl = 'https://image.tmdb.org/t/p/original'
 const baseUrl = 'https://api.themoviedb.org/3'
@@ -12,6 +16,20 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json())
 export default function Detail() {
   const router = useRouter()
   const slug = router.query['slug']
+  const dispatch = useDispatch()
+
+  const saveMovie = (movie: MovieI) => {
+    const isTv: boolean = movie.media_type === 'tv'
+    const payload: watchListI = {
+      id: movie.id,
+      title:  `${isTv ? movie.name : movie.title}`,
+      backdrop_path: movie.backdrop_path,
+      release_date: `${isTv ? movie.first_air_date : movie.release_date}`
+    }
+
+    dispatch(addMovie(payload))
+    alert('success')
+  }
 
   const { data, error } = useSWR(
     `${baseUrl}/movie/${slug}?api_key=${process.env.NEXT_PUBLIC_API_TOKEN}`,
@@ -71,6 +89,7 @@ export default function Detail() {
               </div>
             ))}
           </div>
+          <button onClick={() => saveMovie(data)} className='px-8 py-2 bg-white text-black mt-6 rounded-full'>Simpan</button>
         </div>
       </motion.div>
     </Layout>
