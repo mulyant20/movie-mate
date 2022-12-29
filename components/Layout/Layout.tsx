@@ -18,7 +18,7 @@ export default function Layout({ children }: Props) {
           transition={{ duration: 0.1, ease: 'easeIn' }}
           className='ml-72 py-8 max-w-[calc(100vw-18rem)] h-fit mb-12'
         >
-          <div className='w-[calc(100%-8rem)] xl:max-w-[1000px] h-fit mx-auto'>
+          <div className=' xl:max-w-[1000px] h-fit mx-auto'>
             {children}
           </div>
         </motion.div>

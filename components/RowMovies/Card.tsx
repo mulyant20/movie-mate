@@ -19,7 +19,7 @@ const Card = ({ movie }: Props) => {
   }
 
   return (
-    <div className={style.card} onClick={() => openDetail(data.id)}>
+    <div className={style.card}>
       <div className={style.gradient}>
         <div className={style.top}>
           <div className={style.ratingWrapper}>
@@ -44,7 +44,7 @@ const Card = ({ movie }: Props) => {
 }
 
 const style = {
-  card: 'w-[300px] h-64 rounded-[18px] bg-[#232027] relative',
+  card: 'flex-1 min-w-[300px] h-64 rounded-[18px] bg-[#232027] relative z-10',
   gradient:
     'w-full h-full absolute left-0 top-0 bg-gradient-to-t from-[#1A171E] to-[#1A171E]/0 rounded-[16px] p-6',
   top: 'h-full w-full flex flex-col justify-between items-start',
@@ -52,8 +52,8 @@ const style = {
     'inline-flex gap-2 items-center rounded-full px-[12px] py-[8px] bg-black/70 mb-4 text-white',
   name: 'text-lg text-white',
   time: 'text-sm text-white/30',
-  imgWrapper: 'w-full h-full rounded-[20px] overflow-hidden',
-  img: 'w-full h-full object-cover object-center rounded-[18px]',
+  imgWrapper: 'w-full h-full overflow-hidden',
+  img: 'w-full h-full rounded-[20px] object-cover object-center rounded-[18px]',
 }
 
 const getData = (movie: MovieI) => {
