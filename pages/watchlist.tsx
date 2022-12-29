@@ -1,7 +1,7 @@
 import { Layout } from '@components/Layout'
 import { CardWatchlist } from '@components/RowMovies'
 import { watchListI } from '@interfaces/watchlist'
-import React, { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 
 type Props = {}
 
