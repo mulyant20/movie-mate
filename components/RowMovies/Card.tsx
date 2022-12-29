@@ -1,4 +1,5 @@
 import { MovieI } from '@interfaces/movies'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 
@@ -14,10 +15,6 @@ const Card = ({ movie }: Props) => {
     return getData(movie)
   }, [])
 
-  const openDetail = (id: number) => {
-    router.push(`/detail/${id}`)
-  }
-
   return (
     <div className={style.card}>
       <div className={style.gradient}>
@@ -27,7 +24,7 @@ const Card = ({ movie }: Props) => {
             <p>{data.rating}</p>
           </div>
           <div>
-            <p className={style.name}>{data.name}</p>
+            <Link href={`/detail/${data.id}`} className={style.name}>{data.name}</Link>
             <p className={style.time}>{data.time}</p>
           </div>
         </div>
